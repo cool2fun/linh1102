@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Granny" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Granny Original</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/gru6nny/ohd@main/TemplateData/style.css">
+    <script src="https://cdn.jsdelivr.net/gh/gru6nny/ohd@7945e90/sdk.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+        }
+
+        #unity-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        #unity-loading-bar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 20px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            display: block;
+        }
+
+        #unity-progress-bar-empty {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #unity-progress-bar-full {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: #4caf50;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+
+        #unity-warning {
+            position: absolute;
+            left: 50%;
+            top: 5%;
+            transform: translate(-50%);
+            background: white;
+            padding: 10px;
+            display: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="unity-container">
+    <canvas id="unity-canvas" style="position:absolute;width:100%;height:100%"></canvas>
+
+    <div id="unity-loading-bar">
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+    </div>
+
+    <div id="unity-warning"></div>
+</div>
+
+<script>
+
+async function mergeUnityWebFiles(partUrls) {
+
+    const parts = [];
+    let totalLength = 0;
+
+    for (let i = 0; i < partUrls.length; i++) {
+
+        const url = partUrls[i];
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Failed to load part: ${url}`);
+        }
+
+        const buffer = await response.arrayBuffer();
+        const u8 = new Uint8Array(buffer);
+
+        parts.push(u8);
+
+        totalLength += u8.byteLength;
+
+        const progress = ((i + 1) / partUrls.length) * 100;
+
+        document.querySelector("#unity-progress-bar-full").style.width = `${progress}%`;
+    }
+
+    const combined = new Uint8Array(totalLength);
+
+    let offset = 0;
+
+    for (let i = 0; i < parts.length; i++) {
+
+        combined.set(parts[i], offset);
+
+        offset += parts[i].byteLength;
+
+        parts[i] = null;
+    }
+
+    return combined;
+}
+
+async function clearCorruptedSave() {
+
+    try {
+
+        if (!indexedDB.databases) return;
+
+        const v = localStorage.getItem('granny_save_v');
+
+        if (v === '1') return;
+
+        const dbs = await indexedDB.databases();
+
+        for (const db of dbs) {
+
+            if (db.name && (db.name.includes('Granny') || db.name === '/idbfs')) {
+                indexedDB.deleteDatabase(db.name);
+            }
+        }
+
+        localStorage.setItem('granny_save_v', '1');
+
+    } catch (e) {
+
+        console.warn('IDB cleanup skipped:', e);
+    }
+}
+
+var container = document.querySelector("#unity-container");
+var canvas = document.querySelector("#unity-canvas");
+var loadingBar = document.querySelector("#unity-loading-bar");
+var progressBarFull = document.querySelector("#unity-progress-bar-full");
+var warningBanner = document.querySelector("#unity-warning");
+
+function unityShowBanner(msg, type) {
+
+    function updateBannerVisibility() {
+        warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+    }
+
+    var div = document.createElement('div');
+
+    div.innerHTML = msg;
+
+    warningBanner.appendChild(div);
+
+    if (type == 'error') {
+
+        div.style = 'background:red;padding:10px;';
+
+    } else {
+
+        if (type == 'warning') {
+            div.style = 'background:yellow;padding:10px;';
+        }
+
+        setTimeout(function () {
+
+            warningBanner.removeChild(div);
+
+            updateBannerVisibility();
+
+        }, 5000);
+    }
+
+    updateBannerVisibility();
+}
+
+
+//////////////////////////////////////////////////////
+// DATA PART CDN LINKS
+//////////////////////////////////////////////////////
+
+var dataPartUrls = [
+    "https://cdn.jsdelivr.net/gh/gru6nny/datax@a77a8a6/Granny_part1.data",
+    "https://cdn.jsdelivr.net/gh/gru6nny/datax@a77a8a6/Granny_part2.data"
+];
+
+
+//////////////////////////////////////////////////////
+// WASM PART CDN LINKS
+//////////////////////////////////////////////////////
+
+var wasmPartUrls = [
+    "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7945e90/Build/Granny_part1.wasm",
+    "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7945e90/Build/Granny_part2.wasm"
+];
+
+
+//////////////////////////////////////////////////////
+// FRAMEWORK + LOADER CDN LINKS
+//////////////////////////////////////////////////////
+
+var wasmBuildUrl = "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7945e90/Build";
+var loaderUrl = "https://cdn.jsdelivr.net/gh/gru6nny/ohd@7945e90/Build/Granny.loader.js";
+
+
+async function initializeGame() {
+
+    try {
+
+        await clearCorruptedSave();
+
+
+        //////////////////////////////////////////////////////
+        // DATA FILES -> @main
+        //////////////////////////////////////////////////////
+
+        const dataBuffer = await mergeUnityWebFiles(dataPartUrls);
+
+
+        //////////////////////////////////////////////////////
+        // WASM FILES -> @7945e90
+        //////////////////////////////////////////////////////
+
+        const wasmBuffer = await mergeUnityWebFiles(wasmPartUrls);
+
+
+        const dataBlobUrl = URL.createObjectURL(
+            new Blob([dataBuffer], {
+                type: "application/octet-stream"
+            })
+        );
+
+
+        const wasmBlobUrl = URL.createObjectURL(
+            new Blob([wasmBuffer], {
+                type: "application/octet-stream"
+            })
+        );
+
+
+        var config = {
+
+            dataUrl: dataBlobUrl,
+
+            frameworkUrl: wasmBuildUrl + "/Granny.framework.js",
+
+            codeUrl: wasmBlobUrl,
+
+            streamingAssetsUrl:
+                "https://cdn.jsdelivr.net/gh/gru6nny/ohd@main/StreamingAssets",
+
+            companyName: "Anastasia Kazantseva",
+
+            productName: "Granny",
+
+            productVersion: "1.0",
+
+            showBanner: unityShowBanner,
+        };
+
+
+        var script = document.createElement("script");
+
+        script.src = loaderUrl;
+
+        script.onload = () => {
+
+            createUnityInstance(canvas, config, (progress) => {
+
+                progressBarFull.style.width = 100 * progress + "%";
+
+            }).then((unityInstance) => {
+
+                loadingBar.style.display = "none";
+
+            }).catch((message) => {
+
+                alert(message);
+            });
+        };
+
+        document.body.appendChild(script);
+
+    } catch (error) {
+
+        console.error("Game initialization failed:", error);
+    }
+}
+
+initializeGame();
+
+</script>
+<!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+</body>
+</html>
+  ]]></Content>
+</Module>

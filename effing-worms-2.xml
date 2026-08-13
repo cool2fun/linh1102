@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Effing Worms 2" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Effing Worms 2</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/tyler6974/gxmehub-assests@897732f336fe655d87857c296c122a0bc3fd9269/swf/effingworms2_9.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/tyler6974/gxmehub-assests@897732f336fe655d87857c296c122a0bc3fd9269/swf/effingworms2_9.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/tyler6974/gxmehub-assests@897732f336fe655d87857c296c122a0bc3fd9269/swf/effingworms2_9.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

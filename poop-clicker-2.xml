@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Poop Clicker 2" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Poop Clicker 2</title></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/poopclicker/poop-clicker@4350632afd4414148e3f07551cec19576ba2b687/jquery-2.1.1.min.js"></script><script src="https://cdn.jsdelivr.net/gh/bobydob/godotpack@22a9362b7b98e07dcfe208407880f05136a9da81/side/p-cl/pc.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

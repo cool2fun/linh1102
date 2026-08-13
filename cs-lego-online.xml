@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="CS Lego Online" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CS Lego Online</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ahmethamdrt567/google3@main/TemplateData/style.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/ahmethamdrt567/google3@main/TemplateData/UnityProgress.js"></script><script src="https://cdn.jsdelivr.net/gh/ahmethamdrt567/google3@main/Build/UnityLoader.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

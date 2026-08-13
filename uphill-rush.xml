@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Uphill Rush" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Uphill Rush</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@b42643dd53c4bea37ca965084165338dd873bae5/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/UnsolvedCypher/UnsolvedCypher.github.io@878f2706bb0bc9340616d22d3a50469ae42c9ce1/games/games/uphill_rush_agame_com.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/UnsolvedCypher/UnsolvedCypher.github.io@878f2706bb0bc9340616d22d3a50469ae42c9ce1/games/games/uphill_rush_agame_com.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/UnsolvedCypher/UnsolvedCypher.github.io@878f2706bb0bc9340616d22d3a50469ae42c9ce1/games/games/uphill_rush_agame_com.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

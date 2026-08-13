@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Tank Flow" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+      #loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+        z-index: 9999;
+        transition: opacity .3s;
+      }
+      #loader.hide { opacity: 0; pointer-events: none; }
+      .spin {
+        width: 28px; height: 28px;
+        border: 3px solid #333;
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: s .7s linear infinite;
+        margin-right: 12px;
+      }
+      @keyframes s { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <div id="loader"><div class="spin"></div><span id="status">Loading…</span></div>
+    <iframe id="app-frame" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
+    <script>
+      (function () {
+        var OWNER = "watercolorpenguin";
+        var REPO  = "TFFiles";
+
+        var LATEST_SOURCES = [
+          "https://cdn.jsdelivr.net/gh/" + OWNER + "/" + REPO + "@master/docs/latest.txt"
+        ];
+
+        var CDN_BASES = [
+          "https://cdn.jsdelivr.net/gh/" + OWNER + "/" + REPO + "@",
+        ];
+
+        var DIST_PATH = "/dist/";
+
+        var $ = document.getElementById.bind(document);
+        var status = function (t) { var el = $("status"); if (el) el.textContent = t; };
+
+        function isValidRef(r) {
+          return /^[a-f0-9]{7,40}$/i.test(r) || /^[a-z0-9._-]+$/i.test(r);
+        }
+
+        async function raceFetch(urls) {
+          for (var i = 0; i < urls.length; i++) {
+            try {
+              var res = await fetch(urls[i], { cache: "no-store" });
+              if (res.ok) return (await res.text()).trim();
+            } catch (_) {}
+          }
+          throw new Error("All sources failed");
+        }
+
+        function rewriteUrls(html, base) {
+          html = html.replace(
+            /(src|href)\s*=\s*"(?!https?:\/\/|data:|blob:|javascript:|mailto:|#)([^"]+)"/gi,
+            function (_, attr, path) {
+              path = path.replace(/^\.\//, "").replace(/^\//, "");
+              return attr + '="' + base + path + '"';
+            }
+          );
+          html = html.replace(
+            /url\(\s*['"]?(?!https?:\/\/|data:|blob:)([^'")]+)['"]?\s*\)/gi,
+            function (_, path) {
+              path = path.replace(/^\.\//, "").replace(/^\//, "");
+              return "url('" + base + path + "')";
+            }
+          );
+          return html;
+        }
+
+        // =====================================================================
+        //  BOOT
+        // =====================================================================
+        async function boot() {
+          var ref;
+          try {
+            ref = await raceFetch(LATEST_SOURCES);
+            if (!isValidRef(ref)) throw new Error("Invalid ref: " + ref);
+          } catch (e) {
+            console.warn("latest.txt failed, falling back to @master:", e);
+            ref = "master";
+          }
+
+          var loaded = false;
+
+          for (var c = 0; c < CDN_BASES.length; c++) {
+            var baseUrl  = CDN_BASES[c] + ref + DIST_PATH;
+            var indexUrl = baseUrl + "index.html";
+
+            try {
+              var res = await fetch(indexUrl);
+              if (!res.ok) throw new Error(res.status);
+              var html = await res.text();
+
+              html = rewriteUrls(html, baseUrl);
+
+              var cspMeta = '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
+              if (html.indexOf("<head>") !== -1) {
+                html = html.replace("<head>", "<head>" + cspMeta);
+              } else if (html.indexOf("<HEAD>") !== -1) {
+                html = html.replace("<HEAD>", "<HEAD>" + cspMeta);
+              } else {
+                html = cspMeta + html;
+              }
+
+              var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+              var blobUrl = URL.createObjectURL(blob);
+
+              var frame = $("app-frame");
+              frame.onload = function () {
+                $("loader").classList.add("hide");
+                setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 5000);
+              };
+              frame.src = blobUrl;
+
+              loaded = true;
+              break;
+            } catch (e) {
+              console.warn("CDN " + (c + 1) + " failed:", e);
+            }
+          }
+
+          if (!loaded) {
+            var fallbackUrl = CDN_BASES[0] + ref + DIST_PATH + "index.html";
+            var frame = $("app-frame");
+            frame.onload = function () { $("loader").classList.add("hide"); };
+            frame.src = fallbackUrl;
+          }
+        }
+
+        boot().catch(function (e) {
+          console.error("Boot error:", e);
+          status("Failed to load. Please refresh.");
+        });
+      })();
+    </script>
+  </body>
+
+  <!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+
+</html>
+  ]]></Content>
+</Module>

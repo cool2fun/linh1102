@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Bump Battle" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Bump Battle</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@48971d688b5779ac5ca3081e3c0ddae574e33b18/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/jackilyna/lightspark@2d4e6be626e519077183d024f917de7aa3d8c677/resources/bump-battle-royale.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/jackilyna/lightspark@2d4e6be626e519077183d024f917de7aa3d8c677/resources/bump-battle-royale.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/jackilyna/lightspark@2d4e6be626e519077183d024f917de7aa3d8c677/resources/bump-battle-royale.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Five Nights at Candy’s 2" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href ="https://cdn.jsdelivr.net/gh/web-ports/fnac/2/">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="HandheldFriendly" content="true" />
+    <title>Five Nights at Candy's 2</title>
+</head>
+
+<body>
+    <div style="display: inline-block; -webkit-user-select: none; text-align: left">
+        <canvas id="MMFCanvas" width="1280" height="720"> Your browser does not support Canvas, Please try again. </canvas>
+    </div>
+    <div id="progress-container">
+        <h2 style="color: #fff; font-family: Arial, sans-serif; margin-bottom: 20px; text-align: center;">
+            Loading Classroom Events...
+        </h2>
+        <div style="width: 100%; background: #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+            <div id="download-bar" style="height: 30px; background: linear-gradient(90deg, #fbbf24, #f59e0b); width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center;">
+                <span id="download-text" style="color: #fff; font-weight: bold; font-family: Arial, sans-serif; font-size: 14px;">0%</span>
+            </div>
+        </div>
+        <div style="width: 100%; background: #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 15px;">
+            <div id="extract-bar" style="height: 30px; background: linear-gradient(90deg, #10b981, #059669); width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center;">
+                <span id="extract-text" style="color: #fff; font-weight: bold; font-family: Arial, sans-serif; font-size: 14px;">0%</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="main.js"></script>
+ <!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+</body>
+
+</html>
+  ]]></Content>
+</Module>

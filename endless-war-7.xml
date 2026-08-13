@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Endless War 7" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Endless War 7</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@25b8ff014cc80400feda761c292eb83d5566a3f8/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/NV4s/swfdump@80a479a3b8f045e105e7b62404db20e46b73f74a/Endless%20War%207.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/NV4s/swfdump@80a479a3b8f045e105e7b62404db20e46b73f74a/Endless%20War%207.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/NV4s/swfdump@80a479a3b8f045e105e7b62404db20e46b73f74a/Endless%20War%207.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

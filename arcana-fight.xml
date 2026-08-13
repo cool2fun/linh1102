@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Arcana Fight" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Arcana Fight</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/Tsyuay/FrivReborn@e0fc116e91ba8c7112d6decf299aa56661bcbb0d/games/arcaneweapon/521d2d8fc9683.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/Tsyuay/FrivReborn@e0fc116e91ba8c7112d6decf299aa56661bcbb0d/games/arcaneweapon/521d2d8fc9683.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/Tsyuay/FrivReborn@e0fc116e91ba8c7112d6decf299aa56661bcbb0d/games/arcaneweapon/521d2d8fc9683.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

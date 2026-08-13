@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Goku" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Goku</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@b8543abf2881dfb9519de3f0d5022de154b7df3d/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/jackilyna/wally@de4c6a9ba540d0b0dc0366fcd3387a62ae2ea124/dist/example/db-goku.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/jackilyna/wally@de4c6a9ba540d0b0dc0366fcd3387a62ae2ea124/dist/example/db-goku.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/jackilyna/wally@de4c6a9ba540d0b0dc0366fcd3387a62ae2ea124/dist/example/db-goku.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

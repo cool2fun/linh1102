@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Alone in the Madness" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Alone in the Madness</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@237f5b3db8afc7f5971670063e5e7f7361a58cc0/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/HardcoreGamer66/AloneInTheMadness@627d4d615b71ed81c9050a82e042531b6f795a48/663796_alone-in-the-madness.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/HardcoreGamer66/AloneInTheMadness@627d4d615b71ed81c9050a82e042531b6f795a48/663796_alone-in-the-madness.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/HardcoreGamer66/AloneInTheMadness@627d4d615b71ed81c9050a82e042531b6f795a48/663796_alone-in-the-madness.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

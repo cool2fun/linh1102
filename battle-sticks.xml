@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Battle Sticks" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Battle Sticks</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/style.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/box2d.wasm.js"></script><script src="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/scripts/supportcheck.js"></script><script src="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/scripts/offlineclient.js"></script><script src="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/scripts/main.js"></script><script src="https://cdn.jsdelivr.net/gh/bessiegasbarro/SDuel@0986e17255749a0cdbed64e6200a8ffd8aa492e8/scripts/register-sw.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

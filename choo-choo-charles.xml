@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Choo-Choo Charles" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/testamalame/x86x8x6@main/TemplateData/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/testamalame/x86x8x6@main/TemplateData/style.css"/>
+    <style>
+        body, html { padding: 0; margin: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+        #unity-container { width: 100%; height: 100%; position: absolute; }
+        #unity-canvas { width: 100%; height: 100%; background: #231f20; }
+        .spinner { border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #chunk-status { color: #fff; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%); font-family: sans-serif; font-size: 14px; text-align: center; width: 100%; }
+    </style>
+<script>
+window.ysdk = window.ysdk || { adv: { showBannerAdv: function(){}, hideBannerAdv: function(){}, getBannerAdvStatus: function(){ return Promise.resolve({ stickyAdvIsShowing: false }); }, showFullscreenAdv: function(){}, showInterstitial: function(){}, showRewarded: function(){} } };
+window.YaGames = window.YaGames || { init: function(){ return Promise.resolve(window.ysdk); } };
+window.bridge = window.bridge || { advertisement: window.ysdk.adv };
+</script>
+</head>
+<body class="dark">
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+<div id="loading-cover">
+    <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="https://cdn.jsdelivr.net/gh/testamalame/x86x8x6@main/logo.png" onerror="this.style.display='none'"/></div>
+        <div id="chunk-status">g+...</div>
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<script>
+    const buildUrl = "https://cdn.jsdelivr.net/gh/testamalame/x86x8x6@main/Build";
+    const loaderUrl = buildUrl + "/ChoChoWeb.loader.js";
+    
+    // Parça Ayarları
+    const dataPartCount = 4;
+    const dataBaseName = buildUrl + "/ChoChoWeb.data.unityweb.part";
+
+    const config = {
+        dataUrl: "", // Blob ile dolacak
+        frameworkUrl: buildUrl + "/ChoChoWeb.framework.js.unityweb",
+        codeUrl: buildUrl + "/ChoChoWeb.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DarkPlay",
+        productName: "Choo-Choo Charles Catch-up",
+        productVersion: "1.0",
+    };
+
+    const canvas = document.querySelector("#unity-canvas");
+    const loadingCover = document.querySelector("#loading-cover");
+    const progressBarFull = document.querySelector("#unity-progress-bar-full");
+    const chunkStatus = document.querySelector("#chunk-status");
+
+    let myGameInstance = null;
+    let ysdk = null;
+
+    // Blob Birleştirme Mantığı
+    async function fetchAndCombineData() {
+        const chunks = [];
+        for (let i = 0; i < dataPartCount; i++) {
+            chunkStatus.innerText = `g+...: ${i + 1}/${dataPartCount}`;
+            const response = await fetch(`${dataBaseName}${i}`);
+            if (!response.ok) throw new Error("Dosya parçası yüklenemedi: " + i);
+            const buffer = await response.arrayBuffer();
+            chunks.push(buffer);
+        }
+        chunkStatus.innerText = "Dosyalar birleştiriliyor...";
+        const combinedBlob = new Blob(chunks, { type: "application/octet-stream" });
+        return URL.createObjectURL(combinedBlob);
+    }
+
+    // Başlatıcı
+    async function initApp() {
+        try {
+            const blobUrl = await fetchAndCombineData();
+            config.dataUrl = blobUrl;
+            chunkStatus.style.display = "none";
+            loadUnity();
+        } catch (e) {
+            chunkStatus.innerText = "Yükleme hatası! Lütfen sayfayı yenileyin.";
+            console.error(e);
+        }
+    }
+
+    function loadUnity() {
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = `${100 * progress}%`;
+            }).then((unityInstance) => {
+                myGameInstance = unityInstance;
+                loadingCover.style.display = "none";
+                forceFocus();
+                
+                setTimeout(() => {
+                    LanguageRequest();
+                    RequestingEnvironmentData();
+                    forceFocus();
+                }, 500);
+            }).catch((message) => { console.error(message); });
+        };
+        document.body.appendChild(script);
+    }
+
+    function forceFocus() {
+        window.focus();
+        if (canvas) canvas.focus();
+    }
+
+    window.addEventListener('pointerdown', forceFocus);
+    window.addEventListener('touchstart', forceFocus);
+
+    // Yandex SDK Initialization
+    if (typeof YaGames !== "undefined") {
+        YaGames.init().then(_ysdk => {
+            ysdk = _ysdk;
+            if (myGameInstance) {
+                LanguageRequest();
+            }
+        }).catch(e => {
+            console.warn("SDK Bypass active.");
+        });
+    }
+
+    function LanguageRequest() {
+        let lang = "en";
+        let browserLang = navigator.language.split('-')[0];
+        if (ysdk && ysdk.environment && ysdk.environment.i18n.lang !== 'ru') {
+            lang = ysdk.environment.i18n.lang;
+        } else {
+            lang = (browserLang === 'tr' || browserLang === 'en') ? browserLang : 'en';
+        }
+        if (myGameInstance) {
+            myGameInstance.SendMessage('YandexGame', 'SetLanguage', lang);
+        }
+    }
+
+    function RequestingEnvironmentData() {
+        let currentLang = "en";
+        let browserLang = navigator.language.split('-')[0];
+        if (ysdk && ysdk.environment && ysdk.environment.i18n.lang !== 'ru') {
+            currentLang = ysdk.environment.i18n.lang;
+        } else {
+            currentLang = (browserLang === 'tr') ? 'tr' : 'en';
+        }
+
+        const data = {
+            "language": currentLang,
+            "domain": "com",
+            "deviceType": (ysdk && ysdk.deviceInfo) ? ysdk.deviceInfo.type : "desktop",
+            "isMobile": /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+            "isDesktop": !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+            "isTablet": false,
+            "isTV": false,
+            "appID": "internal",
+            "browserLang": browserLang,
+            "payload": null,
+            "promptCanShow": false,
+            "reviewCanShow": false
+        };
+
+        if (myGameInstance) {
+            myGameInstance.SendMessage('YandexGame', 'SetEnvironmentData', JSON.stringify(data));
+        }
+    }
+
+    function FullAdShow() {
+        if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'OpenFullAd');
+        setTimeout(() => {
+            if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'CloseFullAd', 'true');
+            forceFocus();
+        }, 50);
+    }
+
+    function RewardedShow(){}
+
+    function InitSDK(photoSize, scopes) { if (ysdk && ysdk.features && ysdk.features.LoadingAPI) ysdk.features.LoadingAPI.ready(); forceFocus(); }
+    function InitPayments() {}
+    function BuyPayments(id) { forceFocus(); }
+    function GetPayments() { if(myGameInstance) myGameInstance.SendMessage('YandexGame', 'PaymentsEntries', JSON.stringify({id:[],purchased:[]})); }
+    function StickyAdActivity(){}
+    function Review() { forceFocus(); }
+    function PromptShow() { forceFocus(); }
+    function SaveCloud(jsonData, flush) {}
+    function LoadCloud() { if (myGameInstance) myGameInstance.SendMessage('YandexGame', 'SetLoadSaves', "noData"); }
+    function StaticRBTDeactivate() { forceFocus(); }
+
+    initApp(); // Uygulamayı başlat
+</script>
+
+<!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+
+</body>
+</html>
+  ]]></Content>
+</Module>

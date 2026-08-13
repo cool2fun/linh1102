@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Baseball Bros" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Baseball Bros</title></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/brodeliver/bbb@6/BaseballBros.js?th=102"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

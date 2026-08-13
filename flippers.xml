@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Flippers" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0px;
+            margin: 0px;
+            overflow: hidden;
+            background: #000;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+        .fullscreen {
+            background: #000000;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        #loading-cover {
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #unity-loading-bar {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #unity-progress-bar-empty {
+            width: 30%;
+            height: 12px;
+            margin: 10px 20px 20px 10px;
+            text-align: left;
+            background: #202020;
+        }
+        #unity-progress-bar-full {
+            width: 0%;
+            height: 100%;
+            background: #007EBD;
+        }
+    </style>
+    <!-- Tüm YSDK Hatalarını Kökten Çözen Gelişmiş Mock Katmanı -->
+    <script>
+        if (typeof YaGames === 'undefined') {
+            window.YaGames = {
+                init: function() {
+                    return new Promise((resolve) => {
+                        console.log("SDK Mock: Initializing system...");
+                        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                        resolve({
+                            deviceInfo: {
+                                type: isMobile ? 'mobile' : 'desktop',
+                                isMobile: () => isMobile,
+                                isDesktop: () => !isMobile,
+                                isTablet: () => false,
+                                isTV: () => false
+                            },
+                            environment: {
+                                app: { id: '12345' },
+                                browser: { lang: 'tr' },
+                                i18n: { lang: 'tr', tld: 'com' }
+                            },
+                            features: { 
+                                LoadingAPI: { ready: () => console.log("SDK Mock: Loading API Ready") }, 
+                                GameplayAPI: { start: () => {}, stop: () => {} } 
+                            },
+                            adv: { 
+                                showFullscreenAdv: (c) => { if(c.callbacks?.onClose) c.callbacks.onClose(); }, 
+                                showRewardedVideo: (c) => { if(c.callbacks?.onClose) c.callbacks.onClose(); } 
+                            },
+                            getPlayer: () => Promise.resolve({ 
+                                getName: () => "Player",
+                                getUniqueID: () => "mock-uid-123",
+                                getPhoto: (size) => "",
+                                isAuthorized: () => true, // Hata veren kritik fonksiyon
+                                getMode: () => "lite",
+                                setData: () => Promise.resolve(),
+                                getData: () => Promise.resolve({}),
+                                setStats: () => Promise.resolve(),
+                                getStats: () => Promise.resolve({})
+                            }),
+                            getStorage: () => Promise.resolve({
+                                getItem: () => null,
+                                setItem: () => Promise.resolve()
+                            })
+                        });
+                    });
+                }
+            };
+        }
+    </script>
+<script>
+window.ysdk = window.ysdk || { adv: { showBannerAdv: function(){}, hideBannerAdv: function(){}, getBannerAdvStatus: function(){ return Promise.resolve({ stickyAdvIsShowing: false }); }, showFullscreenAdv: function(){}, showInterstitial: function(){}, showRewarded: function(){} } };
+window.YaGames = window.YaGames || { init: function(){ return Promise.resolve(window.ysdk); } };
+window.bridge = window.bridge || { advertisement: window.ysdk.adv };
+</script>
+</head>
+<body>
+    <canvas id="canvas" class="fullscreen"></canvas>
+    <div id="loading-cover" class="fullscreen">
+        <div id="unity-loading-bar">
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            let meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
+        let canvas = document.getElementById('canvas');
+        let loadingCover = document.getElementById('loading-cover');
+        let progressBarFull = document.getElementById('unity-progress-bar-full');
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        function FocusGame() {
+            window.focus();
+            canvas.focus();
+        }
+
+        window.addEventListener('pointerdown', FocusGame);
+        window.addEventListener('touchstart', FocusGame);
+
+        let v_ysdk;
+        let v_player;
+        let v_game_instance;
+        let v_sdk_init = false;
+
+        // SDK Fonksiyonları - Güvenli hale getirildi
+        function GameReadyNow(){ if(v_ysdk) v_ysdk.features.LoadingAPI?.ready(); }
+        function GameplayStart(){ if(v_ysdk) v_ysdk.features.GameplayAPI?.start(); }
+        function GameplayStop(){ if(v_ysdk) v_ysdk.features.GameplayAPI?.stop(); }
+
+        function FullAdShow() {
+            if(!v_ysdk) return;
+            v_ysdk.adv.showFullscreenAdv({
+                callbacks: {
+                    onOpen: () => v_game_instance?.SendMessage('YAds', 'FullscreenAdOpen'),
+                    onClose: () => v_game_instance?.SendMessage('YAds', 'FullscreenAdClosed'),
+                    onError: () => v_game_instance?.SendMessage('YAds', 'FullscreenAdError')
+                }
+            });
+        }
+
+        function RewardAdShow() {
+            if(!v_ysdk) return;
+            v_ysdk.adv.showRewardedVideo({
+                callbacks: {
+                    onOpen: () => v_game_instance?.SendMessage('YAds', 'RewardAdOpen'),
+                    onClose: () => v_game_instance?.SendMessage('YAds', 'RewardAdClosed'),
+                    onRewarded: () => v_game_instance?.SendMessage('YAds', 'RewardAdRewarded'),
+                    onError: () => v_game_instance?.SendMessage('YAds', 'RewardAdError')
+                }
+            });
+        }
+
+        // SDK ve Unity Başlatma Süreci
+        YaGames.init().then(ysdk => {
+            v_ysdk = ysdk;
+            v_ysdk.getPlayer({ scopes: false }).then(_player => {
+                v_player = _player;
+                v_sdk_init = true;
+
+                let unityLoader = document.createElement("script");
+                unityLoader.src = 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/zefli77@main/Build/Build.loader.js';
+                unityLoader.onload = () => {
+                    createUnityInstance(canvas, {
+                        dataUrl: 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/zefli77@f5a52b6/Build/Build.data.unityweb',
+                        frameworkUrl: 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/zefli77@f5a52b6/Build/Build.framework.js.unityweb',
+                        codeUrl: 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/zefli77@f5a52b6/Build/Build.wasm.unityweb',
+                        streamingAssetsUrl: 'StreamingAssets',
+                        companyName: 'new',
+                        productName: 'new',
+                        productVersion: '0.0.0.9',
+                    }, (progress) => {
+                        progressBarFull.style.width = `${progress * 100}%`;
+                    }).then((unityInstance) => {
+                        v_game_instance = unityInstance;
+                        loadingCover.style.display = "none";
+                        canvas.focus();
+                    }).catch(console.error);
+                };
+                document.body.appendChild(unityLoader);
+            }).catch(() => {
+                // Oyuncu çekilemezse dahi oyunu yükle
+                let loader = document.createElement("script");
+                loader.src = 'https://cdn.jsdelivr.net/gh/emrsdahclassroom/zefli77@main/Build/Build.loader.js';
+                document.body.appendChild(loader);
+            });
+        });
+    </script>
+    
+    <!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+
+</body>
+</html>
+  ]]></Content>
+</Module>

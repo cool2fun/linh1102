@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Driven Wild" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html><head>
+<meta charset='utf-8'>
+<style>
+body
+{
+    background: #000;
+}
+@font-face
+{
+    font-family: 'OpenSans';
+    src: url('https://cdn.jsdelivr.net/gh/familiapablo/77550011@main/1/OpenSans.ttf');
+}
+@font-face
+{
+    font-family: 'RobotoMono';
+    src: url('https://cdn.jsdelivr.net/gh/familiapablo/77550011@main/1/RobotoMono.ttf');
+}
+</style>
+</head>
+<body>
+<script src=https://cdn.jsdelivr.net/gh/familiapablo/77550011@main/1/crypto.js></script>
+<script src=https://cdn.jsdelivr.net/gh/familiapablo/77550011@main/1/indexs.js></script>
+
+<!-- Sticky Bottom Center Ad (728x90) with Smooth Slide-Out and Reappearance -->
+
+
+
+
+
+
+</body></html>
+  ]]></Content>
+</Module>

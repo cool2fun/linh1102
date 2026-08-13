@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Backrooms 24" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Backrooms 24</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dayyiq/teyetey@main/style.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/dayyiq/teyetey@main/scripts/supportcheck.js"></script><script src="https://cdn.jsdelivr.net/gh/dayyiq/teyetey@main/scripts/offlineclient.js"></script><script src="https://cdn.jsdelivr.net/gh/dayyiq/teyetey@main/scripts/main.js"></script><script src="https://cdn.jsdelivr.net/gh/dayyiq/teyetey@main/scripts/register-sw.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Zombie Mission 6" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Zombie Mission 6</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/animate.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/hmmg_layoutTransition.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/jquery-3.4.1.min.js"></script><script src="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/html2canvas.min.js"></script><script src="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/pathfind.js"></script><script src="https://cdn.jsdelivr.net/gh/nw-google-usercon/google@main/c2runtime.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

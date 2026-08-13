@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Parking Fury 2" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Parking Fury 2</title></head><body style="margin:0;overflow:hidden"><script src="https://264807146-06371495337481064.preview.editmysite.com/uploads/b/139890129-678697596746370206/files/src/Game.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

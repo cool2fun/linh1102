@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Car Parking Challenge" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Car Parking Challenge</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JM26NET/Assets@5cb61b353cff0365c082c9309e82bb561c027201/Run%202/waflash/waflash-style.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@54f3d32495c6045c45febbb158da7ee5957d2bdb/wasm/waflash-player.min.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Murloc" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Murloc</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/AndreajnRcm4/d4g62dgv5a@52edea2daf14f3c83673e6b1f1788f236beb46b2/dt/wf/js/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/Rockpods/flash-games@d4e98bcedd033320caf7e2c18e50674aea269de1/Murloc-RPG.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/Rockpods/flash-games@d4e98bcedd033320caf7e2c18e50674aea269de1/Murloc-RPG.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/Rockpods/flash-games@d4e98bcedd033320caf7e2c18e50674aea269de1/Murloc-RPG.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

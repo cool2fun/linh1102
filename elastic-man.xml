@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Elastic Man" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Elastic Man</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bobydob/godotpack@5f7e18f39f847f9824f3126e3fa095273c24f653/side/eman/face.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/bobydob/godotpack@bd60a8e8be799b9efc700a4ec8352857bfe9a011/side/eman/face.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

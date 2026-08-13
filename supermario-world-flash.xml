@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Supermario World Flash" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Supermario World Flash</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Fyrecraft/not-assets@6e51c5af55210ec54ba4a15a4dea20b6fd4a093a/Run%202/waflash/waflash-style.css"></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@e37df2994589d76d6c98e299aa273da7de187c5e/wasm/waflash-player.min.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

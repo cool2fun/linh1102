@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Penalty Kick" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Penalty Kick</title></head><body style="margin:0;overflow:hidden"><iframe src="https://rawcdn.githack.com/PenaltyKickOnline/PenaltyKickOnline.github.io/f432955990ac6493d47a17a9e56fbc3e7483713a/index.html" style="width:100vw;height:100vh;border:0" allowfullscreen></iframe></body></html>
+
+  ]]></Content>
+</Module>

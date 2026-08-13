@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Fire and Ice" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Fire and Ice</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@f4db9839f6b3a77a75da21d0dc1f70283b50ab14/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/AlbertKraus/open-source-v3@b70afae0204377b292a131fec5103ce16c9e6401/samples/classic/fire-and-ice.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/AlbertKraus/open-source-v3@b70afae0204377b292a131fec5103ce16c9e6401/samples/classic/fire-and-ice.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/AlbertKraus/open-source-v3@b70afae0204377b292a131fec5103ce16c9e6401/samples/classic/fire-and-ice.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

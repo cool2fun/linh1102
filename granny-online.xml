@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Granny Online" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+
+<html lang="en-us">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>ok</title>
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/bit-73-life/9@main/TemplateData/favicon.ico"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bit-73-life/9@main/TemplateData/style.css"/>
+
+
+<script>
+window.ysdk = window.ysdk || { adv: { showBannerAdv: function(){}, hideBannerAdv: function(){}, getBannerAdvStatus: function(){ return Promise.resolve({ stickyAdvIsShowing: false }); }, showFullscreenAdv: function(){}, showInterstitial: function(){}, showRewarded: function(){} } };
+window.YaGames = window.YaGames || { init: function(){ return Promise.resolve(window.ysdk); } };
+window.bridge = window.bridge || { advertisement: window.ysdk.adv };
+</script>
+</head>
+<body>
+<div id="unity-container" style="position: absolute; width: 100%; height: 100%; left: 0%; top: 0%;">
+<canvas id="unity-canvas" style="position: absolute; width: 100%; height: 100%"></canvas>
+<div id="unity-loading-bar">
+<div id="unity-logo"></div>
+<div id="unity-progress-bar-empty">
+<div id="unity-progress-bar-full"></div>
+</div>
+</div>
+<div id="unity-warning"> </div>
+</div>
+<script>
+    YaGames
+    .init()
+    .then(ysdk => {
+      console.log('Yandex SDK initialized');
+      window.ysdk = ysdk;
+      initPlayer();
+    });
+    
+    var player;
+
+    function initPlayer() {
+      return ysdk.getPlayer({ scopes: false }).then(_player => {
+          player = _player;
+
+          return player;
+        });
+    }
+
+  </script>
+<script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var warningBanner = document.querySelector("#unity-warning");
+
+
+
+  var buildUrl = "https://cdn.jsdelivr.net/gh/bit-73-life/9@main/Build";
+    var loaderUrl = buildUrl + "/bb0d9ecdb05db3e84da20bd14a4f84dc.loader.js";
+    
+    // .wasm dosyalarını birleştiren fonksiyon
+    function loadAndMergeFiles(files, callback) {
+        var mergedBlob = [];
+        
+        // Her dosyayı sırayla yükle
+        var loadNextFile = function (index) {
+            if (index < files.length) {
+                var file = files[index];
+                fetch(buildUrl + "/" + file)
+                    .then(response => response.arrayBuffer())
+                    .then(data => {
+                        mergedBlob.push(new Uint8Array(data));
+                        loadNextFile(index + 1);
+                    })
+                    .catch(error => {
+                        console.error('Dosya yüklenemedi:', file, error);
+                    });
+            } else {
+                // Tüm dosyalar yüklendiğinde, birleştirilmiş dosya ile callback'i çağır
+                callback(new Blob(mergedBlob));
+            }
+        };
+        
+        loadNextFile(0);
+    }
+
+    // .wasm ve .data dosyaları için parçalar
+    var wasmFiles = [
+        "52fc98ffa6c0df3da7ee8ac3194aa7f0.wasm_part0.wasm",
+        "52fc98ffa6c0df3da7ee8ac3194aa7f0.wasm_part1.wasm",
+        "52fc98ffa6c0df3da7ee8ac3194aa7f0.wasm_part2.wasm"
+    ];
+
+    var dataFiles = [
+        "aa32f1e0d2d5eeacc71b89b496157322.data_part0.data",
+        "aa32f1e0d2d5eeacc71b89b496157322.data_part1.data"
+    ];
+
+    // .wasm dosyasını birleştirip yükle
+    loadAndMergeFiles(wasmFiles, function (mergedWasmBlob) {
+        var mergedWasmFile = URL.createObjectURL(mergedWasmBlob);
+
+        // .data dosyasını birleştirip yükle
+        loadAndMergeFiles(dataFiles, function (mergedDataBlob) {
+            var mergedDataFile = URL.createObjectURL(mergedDataBlob);
+
+            var config = {
+                dataUrl: mergedDataFile,  // Birleştirilmiş .data dosyasının yolu
+                frameworkUrl: buildUrl + "/e42b2d09d8d232ecce16310ff4617586.framework.js",
+                codeUrl: mergedWasmFile,  // Birleştirilmiş .wasm dosyasının yolu
+                streamingAssetsUrl: "StreamingAssets",
+                companyName: "Awesome",
+                productName: "Granny VS Grandpa - Multiplayer",
+                productVersion: "0.1",
+            };
+
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                var meta = document.createElement('meta');
+                meta.name = 'viewport';
+                meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+                document.getElementsByTagName('head')[0].appendChild(meta);
+                container.className = "unity-mobile";
+                canvas.className = "unity-mobile";
+            } else {
+                canvas.style.width = "100%";
+                canvas.style.height = "100%";
+            }
+
+            loadingBar.style.display = "block";
+    
+
+        // Varsayılan değerlerle environmentData, cloudSaves, paymentsData ve playerData gibi değişkenlerin tanımlanması
+        let environmentData = {
+            language: "en",
+            domain: "default_domain",
+            deviceType: "desktop",
+            isMobile: false,
+            isDesktop: true,
+            isTablet: false,
+            isTV: false,
+            appID: "default_app_id",
+            browserLang: navigator.language || "en",
+            payload: null,
+            promptCanShow: false,
+            reviewCanShow: false,
+            platform: navigator.platform,
+            browser: (function() {
+                let userAgent = navigator.userAgent;
+                if (userAgent.includes("YaBrowser")) return "Yandex";
+                if (userAgent.includes("OPR") || userAgent.includes("Opera")) return "Opera";
+                if (userAgent.includes("Firefox")) return "Firefox";
+                if (userAgent.includes("MSIE") || userAgent.includes("Trident")) return "IE";
+                if (userAgent.includes("Edge")) return "Edge";
+                if (userAgent.includes("Chrome")) return "Chrome";
+                if (userAgent.includes("Safari")) return "Safari";
+                return "Other";
+            })()
+        };
+        
+        let cloudSaves = 'noData';
+        let paymentsData = 'none';
+        let playerData = 'noData'; // Varsayılan playerData tanımı
+        let payments = null;
+        let initGame = false;
+        let nowFullAdOpen = false;
+        
+        function Yandex_Get () { console.warn("SaveCloud is not implemented"); }
+        function LoadCloud() { console.warn("LoadCloud is not implemented"); return Promise.resolve("noData"); }
+        function FullAdShow() { console.warn("FullAdShow is not implemented"); }
+        function RewardedShow(){}
+        function StickyAdActivity(){}
+        function Review() { console.warn("Review is not implemented"); }
+        function PromptShow() { console.warn("PromptShow is not implemented"); }
+        function InitLeaderboards() { console.warn("InitLeaderboards is not implemented"); }
+        function GetLeaderboardScores() { console.warn("GetLeaderboardScores is not implemented"); }
+        function SetLeaderboardScores() { console.warn("SetLeaderboardScores is not implemented"); }
+        function ConsumePurchase() { console.warn("ConsumePurchase is not implemented"); }
+        function ConsumePurchases() { console.warn("ConsumePurchases is not implemented"); } 
+        
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    progressBarFull.style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    myGameInstance = unityInstance;
+                    loadingBar.style.display = "none";
+                }).catch((message) => {
+                    alert(message);
+                });
+            };
+
+            document.body.appendChild(script);
+        });
+    });
+    
+    </script>
+</body>
+</html>
+  ]]></Content>
+</Module>

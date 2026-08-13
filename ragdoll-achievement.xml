@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Ragdoll Achievement" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Ragdoll Achievement</title>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000}object,embed{display:block;width:100%;height:100%}</style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/gh/zhit73/wafedit@15cfc332276e04de827780e6ffc5b9a2742154a1/wasm/waflash-player.min.js"></script>
+  <object width="100%" height="100%" data="https://cdn.jsdelivr.net/gh/wergboy/Meteor@58b843c6da558f8c5d842416f02fe1b9dccbea4b/tests/react-meteor-data-harness/rag-ach.swf">
+    <param name="movie" value="https://cdn.jsdelivr.net/gh/wergboy/Meteor@58b843c6da558f8c5d842416f02fe1b9dccbea4b/tests/react-meteor-data-harness/rag-ach.swf">
+    <embed src="https://cdn.jsdelivr.net/gh/wergboy/Meteor@58b843c6da558f8c5d842416f02fe1b9dccbea4b/tests/react-meteor-data-harness/rag-ach.swf" width="100%" height="100%">
+  </object>
+</body>
+</html>
+
+  ]]></Content>
+</Module>

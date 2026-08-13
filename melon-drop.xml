@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Melon Drop" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Melon Drop</title></head><body style="margin:0;overflow:hidden"><script src="https://cdn.jsdelivr.net/gh/fedosyamamontova/httplibrary@8fe6115615b43b568799e1ed0c488b79f42d6a18/src/main/java/com/github/kevinsawicki/http/b0ba270e6a29211019a99342b797af52.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>

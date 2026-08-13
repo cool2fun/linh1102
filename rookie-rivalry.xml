@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Rookie Rivalry" />
+  <Content type="html"><![CDATA[
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Rookie Rivalry</title><link rel="stylesheet" href="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/style.css"></head><body style="margin:0;overflow:hidden"><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/xmldom.js"></script><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/xpath.js"></script><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/scripts/supportcheck.js"></script><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/scripts/offlineclient.js"></script><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/scripts/main.js"></script><script src="https://374610594-153905749316385925.preview.editmysite.com/uploads/b/139890129-538277031118477931/files/scripts/register-sw.js"></script><div id="game"></div></body></html>
+
+  ]]></Content>
+</Module>
